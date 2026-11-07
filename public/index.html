@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0F4A28" />
+    <title>Книга рецептів</title>
+    <link rel="icon" href="/icons/food/pot-of-food.svg" type="image/svg+xml" />
+    <!-- застосунок на головному екрані -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/app/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Рецепти" />
+    <!-- власні шрифти: лише кирилиця й латиниця, ~130 КБ, кешуються на рік -->
+    <link
+      rel="preload"
+      href="/fonts/onest-cyrillic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/unbounded-cyrillic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/css/main.css" />
+    <script type="module" src="/js/main.jsx"></script>
+  </head>
+  <body>
+    <header class="cloth">
+      <svg
+        class="hero-deco"
+        viewBox="0 0 560 330"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <defs>
+          <radialGradient id="plateG" cx="50%" cy="40%" r="62%">
+            <stop offset="0" stop-color="#FFFFFF" />
+            <stop offset="1" stop-color="#E1EFDA" />
+          </radialGradient>
+          <filter id="plateSh" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow
+              dx="0"
+              dy="16"
+              stdDeviation="18"
+              flood-color="#01170A"
+              flood-opacity=".55"
+            />
+          </filter>
+          <g id="lf">
+            <path d="M0 0C18-20 52-20 70 0C52 20 18 20 0 0Z" />
+            <path
+              d="M6 0H62"
+              fill="none"
+              stroke="#fff"
+              stroke-opacity=".35"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </g>
+        </defs>
+        <use
+          href="#lf"
+          fill="#5DB65A"
+          opacity=".45"
+          transform="translate(455 46) rotate(-38) scale(2.2)"
+        />
+        <use
+          href="#lf"
+          fill="#3E9A52"
+          opacity=".6"
+          transform="translate(470 150) rotate(12) scale(1.8)"
+        />
+        <use
+          href="#lf"
+          fill="#4BA35A"
+          opacity=".45"
+          transform="translate(240 48) rotate(-148) scale(1.6)"
+        />
+        <use
+          href="#lf"
+          fill="#7CC86B"
+          opacity=".35"
+          transform="translate(220 292) rotate(158) scale(1.9)"
+        />
+        <g fill="#FFFFFF" opacity=".2">
+          <path
+            d="M128 52v40c0 14 8 24 18 24s18-10 18-24V52h-5v38h-5V52h-5v38h-6V52h-5v38h-5V52z"
+          />
+          <rect x="140" y="124" width="12" height="150" rx="6" />
+          <path d="M520 46C503 70 499 110 503 146h17Z" />
+          <path d="M503 152h17v122a8.5 8.5 0 0 1-17 0z" />
+        </g>
+        <g class="plate-float">
+          <circle
+            cx="330"
+            cy="168"
+            r="140"
+            fill="url(#plateG)"
+            filter="url(#plateSh)"
+          />
+          <circle
+            cx="330"
+            cy="168"
+            r="134"
+            fill="none"
+            stroke="#1B6A3C"
+            stroke-width="6"
+          />
+          <circle
+            cx="330"
+            cy="168"
+            r="106"
+            fill="none"
+            stroke="#CFE5C7"
+            stroke-width="2"
+          />
+          <g transform="translate(330 168)">
+            <g class="rosette">
+              <use
+                href="#lf"
+                fill="#2E7D40"
+                transform="rotate(-10) translate(10 0) scale(1.15)"
+              />
+              <use
+                href="#lf"
+                fill="#5DB65A"
+                transform="rotate(41) translate(10 0) scale(1.05)"
+              />
+              <use
+                href="#lf"
+                fill="#3C9150"
+                transform="rotate(93) translate(10 0) scale(1.2)"
+              />
+              <use
+                href="#lf"
+                fill="#79C46A"
+                transform="rotate(144) translate(10 0)"
+              />
+              <use
+                href="#lf"
+                fill="#2E7D40"
+                transform="rotate(196) translate(10 0) scale(1.15)"
+              />
+              <use
+                href="#lf"
+                fill="#4BA35A"
+                transform="rotate(247) translate(10 0) scale(1.05)"
+              />
+              <use
+                href="#lf"
+                fill="#5DB65A"
+                transform="rotate(299) translate(10 0) scale(1.1)"
+              />
+              <g fill="#A4D98C">
+                <use
+                  href="#lf"
+                  transform="rotate(16) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(67) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(119) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(170) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(222) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(273) translate(8 0) scale(.62)"
+                />
+                <use
+                  href="#lf"
+                  transform="rotate(325) translate(8 0) scale(.62)"
+                />
+              </g>
+              <circle r="25" fill="#F7E58A" stroke="#E9C94E" stroke-width="4" />
+              <path
+                d="M0 0V-19M0 0L16.5-9.5M0 0L16.5 9.5M0 0V19M0 0L-16.5 9.5M0 0L-16.5-9.5"
+                stroke="#FFF7CF"
+                stroke-width="2.2"
+                stroke-linecap="round"
+              />
+              <circle r="4" fill="#FFF7CF" />
+              <g fill="#B5E39B">
+                <circle cx="88" cy="40" r="5" />
+                <circle cx="-60" cy="-78" r="5" />
+                <circle cx="-93" cy="22" r="4.5" />
+                <circle cx="30" cy="-93" r="4" />
+                <circle cx="-24" cy="95" r="4.5" />
+              </g>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(196 262) rotate(-34)" fill="#A8E08F">
+          <path
+            d="M0 0H124"
+            stroke="#A8E08F"
+            stroke-width="3.2"
+            stroke-linecap="round"
+          />
+          <ellipse
+            cx="22"
+            cy="-7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(-28 22 -7)"
+          />
+          <ellipse
+            cx="22"
+            cy="7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(28 22 7)"
+          />
+          <ellipse
+            cx="44"
+            cy="-7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(-28 44 -7)"
+          />
+          <ellipse
+            cx="44"
+            cy="7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(28 44 7)"
+          />
+          <ellipse
+            cx="66"
+            cy="-7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(-28 66 -7)"
+          />
+          <ellipse
+            cx="66"
+            cy="7"
+            rx="11"
+            ry="4.6"
+            transform="rotate(28 66 7)"
+          />
+          <ellipse
+            cx="88"
+            cy="-6"
+            rx="10"
+            ry="4.2"
+            transform="rotate(-28 88 -6)"
+          />
+          <ellipse
+            cx="88"
+            cy="6"
+            rx="10"
+            ry="4.2"
+            transform="rotate(28 88 6)"
+          />
+          <ellipse cx="112" cy="0" rx="10" ry="4" />
+        </g>
+        <g class="twinkle" fill="#fff" opacity=".4">
+          <circle cx="196" cy="92" r="2.2" />
+          <circle cx="252" cy="20" r="1.6" />
+          <circle cx="482" cy="306" r="2.2" />
+          <circle cx="418" cy="16" r="1.8" />
+          <circle cx="176" cy="206" r="1.6" />
+          <circle cx="540" cy="208" r="2" />
+        </g>
+      </svg>
+      <div class="wrap hero">
+        <div class="hero-text">
+          <h1>Книга рецептів</h1>
+          <button
+            type="button"
+            class="season-greet"
+            id="seasonGreet"
+            hidden
+          ></button>
+          <button
+            class="btn"
+            id="openAdd"
+            aria-expanded="false"
+            aria-controls="addPanel"
+          >
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#plus"></use>
+            </svg>
+            Додати страву
+          </button>
+        </div>
+      </div>
+      <div class="season-layer" id="seasonLayer" aria-hidden="true"></div>
+      <svg
+        class="snowcap"
+        viewBox="0 0 1440 48"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 18C180 42 360 40 540 24S900 -6 1080 4 1330 34 1440 22V40C1330 52 1080 22 900 18S360 46 180 44 0 30 0 30Z"
+        />
+      </svg>
+      <svg
+        class="wave"
+        viewBox="0 0 1440 48"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 26C180 50 360 48 540 32S900 2 1080 12 1330 42 1440 30V48H0Z"
+        />
+      </svg>
+    </header>
+
+    <div class="wrap">
+      <section class="add" id="addPanel" hidden aria-labelledby="addTitle">
+        <div class="add-head">
+          <h2 id="addTitle">Нова страва</h2>
+          <button type="button" class="x" id="closeAdd" aria-label="Закрити">
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#x"></use>
+            </svg>
+          </button>
+        </div>
+        <p class="hint">
+          Вкажіть кількості для тієї кількості порцій, на яку розрахований
+          рецепт, а сайт сам перерахує їх для іншої.
+        </p>
+        <form id="addForm" novalidate>
+          <div class="form-grid">
+            <div>
+              <label class="photo-pick" id="photoPick">
+                <span id="photoHint">Торкніться, щоб додати фото страви</span>
+                <img id="photoPreview" alt="" hidden />
+                <input
+                  type="file"
+                  id="photoInput"
+                  accept="image/*"
+                  aria-label="Фото страви"
+                />
+              </label>
+              <div class="photo-tools">
+                <span class="note" id="photoNote"></span
+                ><button type="button" class="linkbtn" id="photoClear" hidden>
+                  Прибрати фото
+                </button>
+              </div>
+            </div>
+            <div class="fields">
+              <div class="row2">
+                <label class="f"
+                  >Назва
+                  <input
+                    type="text"
+                    id="fTitle"
+                    placeholder="Наприклад, Сирники"
+                    maxlength="120"
+                    required
+                    enterkeyhint="next"
+                  />
+                </label>
+                <label class="f"
+                  >Порцій
+                  <input
+                    type="number"
+                    id="fServ"
+                    min="1"
+                    max="50"
+                    value="2"
+                    inputmode="numeric"
+                  />
+                </label>
+              </div>
+              <div class="row2 recipe-meta">
+                <label class="f"
+                  >Категорія
+                  <input
+                    type="text"
+                    id="fCat"
+                    list="catList"
+                    placeholder="Оберіть або впишіть свою"
+                    maxlength="40"
+                  />
+                  <datalist id="catList"></datalist>
+                </label>
+                <label class="f"
+                  >Ккал на порцію
+                  <input
+                    type="number"
+                    id="fKcal"
+                    min="1"
+                    max="10000"
+                    placeholder="450"
+                    inputmode="numeric"
+                  />
+                </label>
+              </div>
+              <div class="f" role="group" aria-labelledby="bjuLbl">
+                <span id="bjuLbl"
+                  >Білки, жири, вуглеводи
+                  <small>грамів на порцію, можна не заповнювати</small></span
+                >
+                <div class="rowm">
+                  <label class="mini"
+                    >Білки<input
+                      type="number"
+                      id="fProt"
+                      min="0"
+                      max="500"
+                      placeholder="30"
+                      inputmode="numeric"
+                  /></label>
+                  <label class="mini"
+                    >Жири<input
+                      type="number"
+                      id="fFat"
+                      min="0"
+                      max="500"
+                      placeholder="15"
+                      inputmode="numeric"
+                  /></label>
+                  <label class="mini"
+                    >Вуглеводи<input
+                      type="number"
+                      id="fCarb"
+                      min="0"
+                      max="1000"
+                      placeholder="40"
+                      inputmode="numeric"
+                  /></label>
+                </div>
+              </div>
+              <label class="f"
+                >Короткий опис <small>одне-два речення для картки</small>
+                <input
+                  type="text"
+                  id="fDesc"
+                  maxlength="220"
+                  placeholder="Що це за страва і чим вона хороша"
+                />
+              </label>
+              <div class="f" role="group" aria-labelledby="iconLbl">
+                <span id="iconLbl"
+                  >Іконка
+                  <small>показується на картці, поки немає фото</small></span
+                >
+                <div
+                  class="icon-pick"
+                  id="iconPick"
+                  role="radiogroup"
+                  aria-labelledby="iconLbl"
+                ></div>
+              </div>
+              <div class="f" role="group" aria-labelledby="tagLbl">
+                <span id="tagLbl">Позначки</span>
+                <div class="tagpick" id="tagPick"></div>
+              </div>
+              <div class="f" role="group" aria-labelledby="ingLbl">
+                <span id="ingLbl"
+                  >Інгредієнти
+                  <small
+                    >кількість можна лишити порожньою, тоді буде «за
+                    смаком»</small
+                  ></span
+                >
+                <div class="ing-rows" id="ingRows"></div>
+                <div>
+                  <button type="button" class="linkbtn" id="addIng">
+                    Додати інгредієнт
+                  </button>
+                </div>
+              </div>
+              <label class="f"
+                >Рецепт <small>кожен крок з нового рядка</small>
+                <textarea
+                  id="fSteps"
+                  placeholder="Нарізати цибулю й моркву.&#10;Обсмажити до м’якості.&#10;…"
+                ></textarea>
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn" id="saveBtn">
+              Зберегти страву
+            </button>
+            <button type="button" class="btn ghost" id="cancelAdd">
+              Скасувати
+            </button>
+            <p class="err" id="formErr" role="alert"></p>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="toolbar">
+      <div class="wrap">
+        <div class="search" role="search">
+          <div class="box">
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#search"></use>
+            </svg>
+            <label class="sr" for="q">Пошук рецептів</label>
+            <input
+              type="search"
+              id="q"
+              placeholder="Пошук: курка, паста, гриби…"
+              autocomplete="off"
+              enterkeyhint="search"
+            />
+          </div>
+          <button
+            type="button"
+            class="filter-btn mob-only"
+            id="openFilters"
+            aria-haspopup="dialog"
+          >
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#sliders-horizontal"></use>
+            </svg>
+            Фільтри <span class="badge" id="fBadge"></span>
+          </button>
+          <button
+            type="button"
+            class="filter-btn shop-btn"
+            id="openShop"
+            aria-haspopup="dialog"
+            aria-label="Список покупок"
+          >
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#shopping-cart"></use>
+            </svg>
+            <span class="lbl">Покупки</span>
+            <span class="badge" id="shBadge"></span>
+          </button>
+          <div class="seg desk-only" role="group" aria-label="Де шукати">
+            <button type="button" data-mode="all" aria-pressed="true">
+              Усюди
+            </button>
+            <button type="button" data-mode="name" aria-pressed="false">
+              Назва
+            </button>
+            <button type="button" data-mode="cat" aria-pressed="false">
+              Категорія
+            </button>
+            <button type="button" data-mode="ing" aria-pressed="false">
+              Інгредієнт
+            </button>
+          </div>
+        </div>
+        <div class="scroll-cue desk-only">
+          <div
+            class="chips"
+            id="chips"
+            role="group"
+            aria-label="Категорії"
+            data-scroll-strip
+          ></div>
+        </div>
+        <div class="scroll-cue desk-only">
+          <div
+            class="chips"
+            id="chips2"
+            role="group"
+            aria-label="Позначки"
+            data-scroll-strip
+          ></div>
+        </div>
+        <div id="react-status"></div>
+        <p class="offline-bar" id="offlineBar" hidden>
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#wifi-off"></use>
+          </svg>
+          Немає інтернету — показую збережену версію. Список покупок працює й
+          синхронізується пізніше.
+        </p>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <div class="scroll-cue mob-only">
+        <div
+          class="af"
+          id="activeF"
+          aria-label="Увімкнені фільтри"
+          data-scroll-strip
+        ></div>
+      </div>
+      <section class="idea" aria-label="Випадкова страва">
+        <div class="dice" id="dice" aria-hidden="true">
+          <img
+            src="/icons/food/slot-machine.svg"
+            alt=""
+            width="32"
+            height="32"
+          />
+        </div>
+        <div class="idea-text">
+          <b>Не знаєте, що приготувати?</b
+          ><span
+            >Крутніть рулетку або підберіть страву з того, що є вдома.</span
+          >
+        </div>
+        <div class="idea-actions">
+          <button type="button" class="btn shine" id="pickRandom">
+            Крутити рулетку
+          </button>
+          <button type="button" class="btn ghost" id="openPantry">
+            <img
+              src="/icons/food/carrot.svg"
+              alt=""
+              width="20"
+              height="20"
+              class="fi fi-sm"
+            />З того, що є
+          </button>
+          <button type="button" class="btn ghost" id="planHoliday">
+            <img
+              src="/icons/food/party-popper.svg"
+              alt=""
+              width="20"
+              height="20"
+              class="fi fi-sm"
+            />Планувати свято
+          </button>
+        </div>
+      </section>
+      <section class="stale" id="stale" hidden aria-labelledby="staleTitle">
+        <div class="stale-head">
+          <h3 id="staleTitle">
+            <img
+              src="/icons/food/hourglass-not-done.svg"
+              alt=""
+              width="20"
+              height="20"
+              class="fi fi-sm"
+            />Давно не готували
+          </h3>
+          <button type="button" class="linkbtn" id="staleAll">
+            Усі за давністю
+          </button>
+        </div>
+        <div class="scroll-cue">
+          <div class="stale-row" id="staleRow" data-scroll-strip></div>
+        </div>
+      </section>
+      <div class="listbar">
+        <p class="count" id="count" aria-live="polite"></p>
+        <label class="sort"
+          ><span>Сортування</span>
+          <select id="sortSel" aria-label="Сортування">
+            <option value="default">Спочатку нові</option>
+            <option value="az">За абеткою</option>
+            <option value="kcal-asc">Менше калорій</option>
+            <option value="kcal-desc">Більше калорій</option>
+            <option value="rating">Найкраща оцінка</option>
+            <option value="prot">Більше білка</option>
+            <option value="cooked">Найчастіше готуємо</option>
+            <option value="stale">Давно не готували</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid" id="grid"></div>
+    </main>
+
+    <footer class="foot">
+      <svg
+        class="wave-top"
+        viewBox="0 0 1440 40"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 0H1440V18C1300 40 1100 40 900 24S540 0 360 12 120 36 0 20Z"
+        />
+      </svg>
+      <div class="wrap foot-in">
+        <div class="foot-logo">
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="#fff" />
+            <circle
+              cx="20"
+              cy="20"
+              r="16"
+              fill="none"
+              stroke="#1B6A3C"
+              stroke-width="2.5"
+            />
+            <path
+              d="M13 23C16 15 24 12 29 13C28 20 21 26 13 23Z"
+              fill="#4BA35A"
+            />
+            <path
+              d="M14 22C18 19 22 17 27 15"
+              stroke="#fff"
+              stroke-width="1.4"
+              stroke-linecap="round"
+              fill="none"
+            />
+          </svg>
+          Книга рецептів
+        </div>
+        <p class="foot-count">
+          <span id="footCount"></span>
+          <button type="button" class="foot-link" id="installBtn" hidden>
+            Встановити на телефон
+          </button>
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="fab" id="fab" aria-label="Додати страву">
+      <svg class="ic" aria-hidden="true" focusable="false">
+        <use href="/icons/ui.svg#plus"></use>
+      </svg>
+    </button>
+
+    <!-- рецепт на весь екран (телефон) -->
+    <section
+      class="rsheet"
+      id="rSheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rsTitle"
+    >
+      <div class="rs-bar">
+        <button
+          type="button"
+          class="back"
+          id="rsBack"
+          aria-label="Назад до списку"
+        >
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#chevron-left"></use>
+          </svg>
+        </button>
+        <span class="rs-name" id="rsBarTitle"></span>
+      </div>
+      <div id="rsBody"></div>
+    </section>
+
+    <!-- фільтри (телефон) -->
+    <div class="backdrop" id="fBackdrop" hidden></div>
+    <section
+      class="fsheet"
+      id="fSheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="fsTitle"
+    >
+      <div class="fs-in">
+        <div class="grab" aria-hidden="true"></div>
+        <h2 id="fsTitle" tabindex="-1">Фільтри</h2>
+        <h3>Де шукати</h3>
+        <div class="seg" role="group" aria-label="Де шукати">
+          <button type="button" data-mode="all" aria-pressed="true">
+            Усюди
+          </button>
+          <button type="button" data-mode="name" aria-pressed="false">
+            Назва
+          </button>
+          <button type="button" data-mode="cat" aria-pressed="false">
+            Категорія
+          </button>
+          <button type="button" data-mode="ing" aria-pressed="false">
+            Інгредієнт
+          </button>
+        </div>
+        <h3>Категорія</h3>
+        <div class="wchips" id="mCats"></div>
+        <h3>Позначки</h3>
+        <div class="wchips" id="mTags"></div>
+      </div>
+      <div class="fs-actions">
+        <button type="button" class="btn ghost" id="fReset">Скинути</button>
+        <button type="button" class="btn" id="fApply">Показати</button>
+      </div>
+    </section>
+
+    <!-- список покупок -->
+    <div class="backdrop" id="shBackdrop" hidden></div>
+    <section
+      class="shsheet"
+      id="shopSheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="shTitle"
+    >
+      <div class="rs-bar sh-bar">
+        <button
+          type="button"
+          class="back"
+          id="shBack"
+          aria-label="Закрити список покупок"
+        >
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#chevron-left"></use>
+          </svg>
+        </button>
+        <span class="rs-name" id="shTitle">Список покупок</span>
+      </div>
+      <div class="sh-body" id="shBody"></div>
+    </section>
+
+    <!-- що приготувати з того, що є -->
+    <div class="backdrop" id="ptBackdrop" hidden></div>
+    <section
+      class="shsheet pantry"
+      id="pantrySheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ptTitle"
+    >
+      <div class="rs-bar sh-bar">
+        <button type="button" class="back" id="ptBack" aria-label="Закрити">
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#chevron-left"></use>
+          </svg>
+        </button>
+        <span class="rs-name" id="ptTitle">Що приготувати з того, що є</span>
+      </div>
+      <div class="sh-body">
+        <p class="pt-intro">
+          Відмітьте продукти, які є вдома. Сіль, олію, воду й спеції вважаємо
+          наявними.
+        </p>
+        <div class="pt-tools">
+          <div class="box">
+            <svg class="ic" aria-hidden="true" focusable="false">
+              <use href="/icons/ui.svg#search"></use></svg
+            ><label class="sr" for="ptSearch">Пошук продукту</label
+            ><input
+              type="search"
+              id="ptSearch"
+              placeholder="Знайти продукт…"
+              autocomplete="off"
+            />
+          </div>
+          <span class="pt-count" id="ptCount"></span>
+          <button type="button" class="linkbtn" id="ptClear" hidden>
+            Очистити
+          </button>
+        </div>
+        <div class="pt-products" id="ptProducts"></div>
+        <div class="pt-results" id="ptResults" aria-live="polite"></div>
+      </div>
+      <div class="pt-jump-bar">
+        <button type="button" class="btn" id="ptJump" hidden></button>
+      </div>
+    </section>
+
+    <!-- спільний план святкового меню -->
+    <div class="backdrop" id="holidayBackdrop" hidden></div>
+    <section
+      class="shsheet holiday-sheet"
+      id="holidaySheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="holidayTitle"
+    >
+      <div class="rs-bar sh-bar">
+        <button
+          type="button"
+          class="back"
+          id="holidayBack"
+          aria-label="Закрити план свята"
+        >
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#chevron-left"></use>
+          </svg>
+        </button>
+        <span class="rs-name" id="holidayTitle">Святкове меню</span>
+      </div>
+      <div class="sh-body" id="holidayBody"></div>
+    </section>
+
+    <!-- рулетка страв -->
+    <div class="backdrop rl-backdrop" id="rlBackdrop" hidden></div>
+    <section
+      class="roulette"
+      id="roulette"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rlTitle"
+    >
+      <div class="rl-machine" id="rlMachine">
+        <div class="rl-lights" aria-hidden="true"></div>
+        <button
+          type="button"
+          class="rl-close"
+          id="rlClose"
+          aria-label="Закрити рулетку"
+        >
+          <svg class="ic" aria-hidden="true" focusable="false">
+            <use href="/icons/ui.svg#x"></use>
+          </svg>
+        </button>
+        <div class="rl-head">
+          <img
+            src="/icons/food/slot-machine.svg"
+            alt=""
+            width="40"
+            height="40"
+          />
+          <h2 id="rlTitle">Що готуємо?</h2>
+        </div>
+        <div
+          class="rl-conds"
+          id="rlConds"
+          role="group"
+          aria-label="Тип страви"
+        ></div>
+        <p class="rl-count" id="rlCount" aria-live="polite"></p>
+        <div class="rl-window" aria-hidden="true">
+          <div class="rl-reel" id="rlReel"></div>
+          <div class="rl-line"></div>
+          <div class="rl-pointer" id="rlPointer"></div>
+        </div>
+        <div class="rl-confetti" id="rlConfetti" aria-hidden="true"></div>
+        <div class="rl-result" id="rlResult" hidden aria-live="polite"></div>
+        <div class="rl-actions">
+          <button type="button" class="btn rl-spin" id="rlSpin">Крутити</button>
+          <button type="button" class="btn rl-open" id="rlOpen" hidden>
+            Відкрити рецепт
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="copybox"
+      id="copyBox"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cbTitle"
+    >
+      <div class="cb-in">
+        <h2 id="cbTitle">Скопіюйте текст</h2>
+        <p class="note">
+          Виділіть увесь текст і скопіюйте його, щоб надіслати в месенджер.
+        </p>
+        <textarea id="cbText" readonly></textarea>
+        <button type="button" class="btn" id="cbClose">Готово</button>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <input type="file" id="recipePhotoInput" accept="image/*" hidden />
+  </body>
+</html>

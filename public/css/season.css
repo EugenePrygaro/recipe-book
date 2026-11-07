@@ -1,0 +1,121 @@
+/* ---------- святкове оформлення шапки (ui/season.js) ---------- */
+.season-layer{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;contain:layout paint}
+.hero{z-index:2}
+.season-greet{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.14);color:#fff;
+  border-radius:999px;padding:7px 14px;font-weight:600;font-size:15px;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  animation:fade-up .7s .2s cubic-bezier(.2,.8,.2,1) both;transition:background-color .2s,transform .15s}
+.season-greet:hover{background:rgba(255,255,255,.24)}
+.season-greet:active{transform:scale(.97)}
+
+/* сніг */
+.snow,.petals,.hearts,.autumn-leaves,.spring-petals,.summer-leaves{position:absolute;inset:0}
+.fall{position:absolute;top:-30px;width:var(--s);height:var(--s);border-radius:50%;background:#fff;opacity:var(--o);
+  animation:fall var(--t) linear var(--dl) infinite}
+.fall.big{background:none;border-radius:0}
+.fall.big .fi,.fall.big svg{width:100%;height:100%}
+@keyframes fall{from{transform:translate3d(0,-20px,0) rotate(0)}to{transform:translate3d(var(--dx),380px,0) rotate(220deg)}}
+
+/* гірлянда */
+.garland{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 0px);height:44px}
+.garland .wire{position:absolute;inset:0;width:100%;height:40px;fill:none;stroke:#0A2716;stroke-width:2.5}
+.bulb{position:absolute;width:11px;height:16px;margin-left:-5.5px;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;background:var(--c);
+  box-shadow:0 0 10px 2px var(--c),0 0 22px 4px color-mix(in srgb,var(--c) 45%,transparent);animation:bulb 1.6s ease-in-out var(--dl) infinite}
+.bulb::before{content:"";position:absolute;left:2.5px;top:-4px;width:6px;height:5px;border-radius:2px;background:#24402F}
+@keyframes bulb{50%{opacity:.35;box-shadow:0 0 4px 0 var(--c)}}
+
+/* Сніжна смужка на хвилі лише під час зимових свят. */
+.snowcap{display:none;position:absolute;left:0;bottom:6px;z-index:2;width:100%;height:40px;fill:#fff;opacity:.92;filter:drop-shadow(0 -2px 4px rgba(0,0,0,.08))}
+[data-season="newyear"] .snowcap{display:block}
+
+/* сердечка */
+.rise{position:absolute;bottom:-40px;width:var(--s);height:var(--s);animation:rise var(--t) ease-in var(--dl) infinite}
+.rise .fi,.rise svg{width:100%;height:100%}
+@keyframes rise{0%{transform:translate3d(0,0,0) scale(.7);opacity:0}15%{opacity:.95}100%{transform:translate3d(var(--dx),-420px,0) scale(1.1);opacity:0}}
+
+/* писанки на ниточках */
+.eggs{position:absolute;inset:0}
+.egg-hang{position:absolute;top:0;width:30px;margin-left:-15px;transform-origin:50% 0;animation:sway 3.2s ease-in-out var(--dl) infinite alternate}
+.egg-hang::before{content:"";display:block;width:1.5px;height:var(--len);margin:0 auto;background:rgba(255,255,255,.7)}
+.egg-hang svg{display:block;width:30px;height:39px;filter:drop-shadow(0 4px 6px rgba(0,30,10,.3))}
+@keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+
+/* Сезонні палітри зберігають темний фон, змінюючи лише колірні акценти. */
+:root[data-palette="winter"]{
+  --bg:#0D1923;--surface:#142534;--ink:#E2EFF8;--muted:#98B1C4;--line:#294052;
+  --rim:#83BFE5;--rim-ink:#10202D;--rim-soft:#1D3445;--mustard:#E8C36E;
+  --danger:#F28B82;--plate:#E8F0F6;--plate-in:#D7E4ED;--field:#10202D;
+  --grad:linear-gradient(120deg,#0A2235 0%,#174B78 48%,#286A9D 100%);--grad-dark:#174B78;
+  color-scheme:dark;
+}
+[data-palette="winter"] .cloth{background:radial-gradient(900px 440px at 8% -35%,rgba(113,181,224,.45),transparent 62%),radial-gradient(700px 420px at 100% 120%,rgba(183,218,240,.3),transparent 60%),linear-gradient(160deg,#102E49 0%,#174B78 48%,#286A9D 100%)}
+
+/* День закоханих: темна основа з помадно-червоними акцентами. */
+:root[data-palette="valentine"]{
+  --bg:#211219;--surface:#321A24;--ink:#F7E7EC;--muted:#C6A0AD;--line:#59303E;
+  --rim:#F07A98;--rim-ink:#32121D;--rim-soft:#482432;--mustard:#EAC274;
+  --danger:#FF9CAB;--plate:#F3E6E9;--plate-in:#E7D5DA;--field:#27151C;
+  --grad:linear-gradient(120deg,#35101F 0%,#8F1238 54%,#C32950 100%);--grad-dark:#8F1238;
+  color-scheme:dark;
+}
+[data-palette="valentine"] .cloth{background:radial-gradient(600px 320px at 80% 5%,rgba(255,146,170,.34),transparent 70%),linear-gradient(155deg,#521126 0%,#8F1238 48%,#C32950 100%)}
+[data-palette="valentine"] .cloth::before{background:radial-gradient(rgba(255,255,255,.12) 1.3px,transparent 1.6px) 0 0/22px 22px}
+
+/* Жовтень і листопад: тепла темна основа та падаюче листя. */
+:root[data-palette="autumn"]{
+  --bg:#1D1712;--surface:#2A2119;--ink:#F3E8DA;--muted:#C2AA91;--line:#493728;
+  --rim:#E7A06B;--rim-ink:#28180F;--rim-soft:#3E2A1D;--mustard:#E6B75E;
+  --danger:#FF9385;--plate:#F3E8DA;--plate-in:#E4D4C1;--field:#211A14;
+  --grad:linear-gradient(120deg,#382012 0%,#713711 52%,#A95424 100%);--grad-dark:#713711;
+  color-scheme:dark;
+}
+[data-palette="autumn"] .cloth{background:radial-gradient(850px 420px at 5% -25%,rgba(244,170,84,.42),transparent 64%),radial-gradient(700px 420px at 100% 120%,rgba(181,78,35,.38),transparent 60%),linear-gradient(155deg,#4A281B 0%,#713711 50%,#A95424 100%)}
+[data-season="autumn"] .fall.big{animation-name:fall-leaf}
+@keyframes fall-leaf{from{transform:translate3d(0,-20px,0) rotate(0)}to{transform:translate3d(var(--dx),380px,0) rotate(540deg)}}
+
+/* Весна: темна сливова основа, сакурові відблиски та пелюстки. */
+:root[data-palette="spring"]{
+  --bg:#171319;--surface:#241D26;--ink:#F5EAF3;--muted:#B8A7B9;--line:#403440;
+  --rim:#E9A8C4;--rim-ink:#271823;--rim-soft:#3A293A;--mustard:#E8C46E;
+  --danger:#FF9CAB;--plate:#F3EAF1;--plate-in:#E4D8E2;--field:#1D1720;
+  --grad:linear-gradient(120deg,#241624 0%,#63334F 52%,#A95D7B 100%);--grad-dark:#63334F;
+  color-scheme:dark;
+}
+[data-palette="spring"] .cloth{background:radial-gradient(700px 360px at 82% 4%,rgba(255,177,207,.24),transparent 68%),radial-gradient(900px 440px at 8% -35%,rgba(131,89,136,.34),transparent 62%),linear-gradient(160deg,#211927 0%,#493047 52%,#74445F 100%)}
+[data-season="easter"] .cloth{background:radial-gradient(900px 440px at 8% -35%,rgba(150,220,140,.25),transparent 62%),radial-gradient(700px 420px at 100% 120%,rgba(255,180,210,.25),transparent 60%),linear-gradient(160deg,#183122 0%,#28523A 52%,#4A6B4E 100%)}
+
+/* Літо зберігає темну зелену основу й додає сонячні відблиски та листочки. */
+:root[data-palette="summer"]{
+  --bg:#0B1510;--surface:#132219;--ink:#E2EFE5;--muted:#93AA9A;--line:#24382B;
+  --rim:#80D18B;--rim-ink:#0A1A10;--rim-soft:#1A3324;--mustard:#F0C04A;
+  --danger:#F28B82;--plate:#E9F0EA;--plate-in:#D7E3D9;--field:#0F1B14;
+  --grad:linear-gradient(120deg,#04180C 0%,#0E4726 40%,#2C7A3E 75%,#76B567 100%);--grad-dark:#0B3A20;
+  color-scheme:dark;
+}
+[data-palette="summer"] .cloth{background:radial-gradient(500px 300px at 88% 8%,rgba(255,224,112,.3),transparent 66%),radial-gradient(900px 440px at 8% -35%,rgba(86,180,104,.55),transparent 62%),radial-gradient(700px 420px at 100% 120%,rgba(126,204,112,.38),transparent 60%),linear-gradient(160deg,#08311D 0%,#0F4A28 48%,#18663B 100%)}
+.summer-sun{position:absolute;top:48px;right:clamp(24px,9vw,140px);width:clamp(36px,6vw,64px);height:clamp(36px,6vw,64px);color:#FFD970;opacity:.88;filter:drop-shadow(0 0 18px rgba(255,220,112,.45));animation:sun-glow 4s ease-in-out infinite alternate}
+.summer-sun svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:5;stroke-linecap:round}
+@keyframes sun-glow{to{transform:scale(1.08);filter:drop-shadow(0 0 26px rgba(255,220,112,.7))}}
+
+/* коли шапки не видно — паузимо анімації */
+.season-paused .season-layer *{animation-play-state:paused !important}
+
+/* місце під гірлянду й писанки над назвою */
+[data-season="newyear"] .hero,[data-season="easter"] .hero{padding-top:64px}
+
+@media (max-width:700px){
+  [data-season="newyear"] .hero,[data-season="easter"] .hero{padding-top:44px}
+  .egg-hang.lft{display:none}
+  .season-greet{font-size:13px;padding:6px 11px}
+  .garland{height:34px}
+  .bulb{width:9px;height:13px;margin-left:-4.5px}
+  .egg-hang{width:24px;margin-left:-12px}
+  .egg-hang svg{width:24px;height:31px}
+  .snowcap{height:24px;bottom:4px}
+  .summer-sun{top:26px}
+}
+@media (prefers-reduced-motion: reduce){
+  .fall:not(.big),.rise,.petals,.spring-petals{display:none}
+  .fall.big{top:auto;bottom:30%}
+  .autumn-leaves,.summer-leaves,.summer-sun{display:none}
+  .bulb,.egg-hang{animation:none}
+}

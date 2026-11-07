@@ -1,0 +1,75 @@
+/* ---------- рулетка страв (ігровий автомат) ---------- */
+.rl-backdrop{z-index:44;background:rgba(2,14,7,.66);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.roulette{position:fixed;inset:0;z-index:45;display:grid;place-items:center;padding:calc(env(safe-area-inset-top,0px) + 16px) 14px calc(env(safe-area-inset-bottom,0px) + 16px);pointer-events:none}
+.roulette[hidden]{display:none}
+.rl-machine{--row:64px;position:relative;pointer-events:auto;width:min(440px,100%);border-radius:30px;padding:26px 20px 20px;color:#fff;text-align:center;
+  background:radial-gradient(120% 70% at 50% -10%, #2E8B4F 0%, transparent 60%),linear-gradient(170deg,#0B3D22,#06200F);
+  box-shadow:0 0 0 3px #E0A21A,0 0 0 9px #0A3520,0 0 0 11px #E0A21A,0 30px 60px rgba(0,0,0,.55);
+  animation:rl-in .45s cubic-bezier(.2,1.3,.4,1)}
+@keyframes rl-in{from{opacity:0;transform:translateY(30px) scale(.9)}}
+
+/* лампочки по периметру: два шари крапок, що блимають по черзі */
+.rl-lights{position:absolute;inset:-8px;border-radius:36px;pointer-events:none;padding:5px;
+  -webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor}
+.rl-lights::before,.rl-lights::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,#FFE59A 0 2.6px,transparent 3.4px) 0 0/18px 18px;animation:rl-blink 1s steps(1) infinite}
+.rl-lights::after{background-position:9px 9px;animation-delay:.5s}
+.rl-machine.spinning .rl-lights::before,.rl-machine.spinning .rl-lights::after{animation-duration:.24s}
+.rl-machine.won .rl-lights::before,.rl-machine.won .rl-lights::after{animation-duration:.4s}
+@keyframes rl-blink{50%{opacity:.15}}
+
+.rl-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:2}
+.rl-head{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
+.rl-head img{width:40px;height:40px;animation:rl-bob 2.4s ease-in-out infinite}
+@keyframes rl-bob{50%{transform:translateY(-4px) rotate(-4deg)}}
+.rl-head h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0;letter-spacing:.01em;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+
+/* вікно барабана на 3 ряди */
+.rl-window{position:relative;height:calc(var(--row) * 3);overflow:hidden;border-radius:18px;background:linear-gradient(#F3F8F1,#FFFFFF 30% 70%,#F3F8F1);
+  box-shadow:inset 0 0 0 3px #0A3520,inset 0 10px 18px rgba(0,0,0,.18),inset 0 -10px 18px rgba(0,0,0,.18)}
+.rl-window::before,.rl-window::after{content:"";position:absolute;left:0;right:0;height:var(--row);z-index:2;pointer-events:none}
+.rl-window::before{top:0;background:linear-gradient(#fff,rgba(255,255,255,0))}
+.rl-window::after{bottom:0;background:linear-gradient(rgba(255,255,255,0),#fff)}
+.rl-reel{will-change:transform}
+.rl-machine.spinning .rl-reel{filter:blur(1.6px)}
+.rl-item{height:var(--row);display:flex;align-items:center;justify-content:center;gap:12px;padding:0 18px;color:#12291C;font-weight:600;font-size:17px;line-height:1.15}
+.rl-item .fi{width:34px;height:34px}
+.rl-item span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-align:left}
+.rl-item.win{animation:rl-win .6s ease-out}
+@keyframes rl-win{40%{transform:scale(1.08)}}
+.rl-line{position:absolute;left:8px;right:8px;top:var(--row);height:var(--row);border-radius:12px;z-index:1;pointer-events:none;
+  border:2.5px solid #E0A21A;box-shadow:0 0 0 4px rgba(224,162,26,.18)}
+.rl-machine.won .rl-line{animation:rl-glow 1s ease-in-out 2}
+@keyframes rl-glow{50%{box-shadow:0 0 0 6px rgba(224,162,26,.45),0 0 24px rgba(224,162,26,.6)}}
+.rl-pointer{position:absolute;right:-2px;top:calc(var(--row) * 1.5 - 12px);z-index:3;width:0;height:0;border:12px solid transparent;border-right:16px solid #E0A21A;transform-origin:100% 50%}
+.rl-pointer.tick{animation:rl-tick .12s ease-out}
+@keyframes rl-tick{50%{transform:rotate(-14deg)}}
+
+.rl-result{margin-top:16px;animation:rl-pop .45s cubic-bezier(.2,1.4,.4,1)}
+@keyframes rl-pop{from{opacity:0;transform:translateY(10px) scale(.95)}}
+.rl-label{margin:0;color:#B6E297;font-size:13px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.rl-result h3{font-family:var(--display);font-weight:500;font-size:22px;margin:4px 0 10px;line-height:1.2}
+.rl-meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.rl-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.14);font-size:13px;font-weight:600}
+.rl-pill.tagged{background:var(--tc);color:var(--tt)}
+
+.rl-actions{display:grid;gap:10px;margin-top:18px}
+.rl-actions .btn{min-height:52px;font-size:17px;width:100%}
+.rl-spin{background:linear-gradient(180deg,#F6C445,#E0A21A);border-color:#E0A21A;color:#2A1E00;box-shadow:0 5px 0 #A9760B,0 10px 20px rgba(0,0,0,.3)}
+.rl-spin:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 #A9760B,0 4px 10px rgba(0,0,0,.3)}
+.rl-spin:disabled{opacity:.75;cursor:progress}
+.rl-open{background:#fff;border-color:#fff;color:var(--grad-dark)}
+
+/* конфеті */
+.rl-confetti{position:absolute;left:50%;top:45%;width:0;height:0;z-index:4;pointer-events:none}
+.rl-confetti i{position:absolute;width:8px;height:12px;border-radius:2px;background:var(--c);animation:rl-confetti 1.3s cubic-bezier(.15,.7,.3,1) var(--d) forwards;opacity:0}
+@keyframes rl-confetti{0%{opacity:1;transform:translate(0,0) rotate(0)}80%{opacity:1}100%{opacity:0;transform:translate(var(--x),calc(var(--y) + 120px)) rotate(var(--r))}}
+
+/* умови рулетки */
+.rl-conds{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 0 6px}
+.rl-cond{display:inline-flex;align-items:center;gap:5px;border:1.5px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600;cursor:pointer;transition:background-color .2s,border-color .2s,transform .15s}
+.rl-cond[aria-pressed="true"]{background:#F2B81F;border-color:#F2B81F;color:#2A1E00}
+.rl-cond:active{transform:scale(.95)}
+.rl-conds.locked{opacity:.6;pointer-events:none}
+.rl-count{margin:4px 0 12px;font-size:13px;color:rgba(255,255,255,.75)}
+.rl-count.warn{color:#FFD27A;font-weight:600}

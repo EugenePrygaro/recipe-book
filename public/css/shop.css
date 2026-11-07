@@ -1,0 +1,34 @@
+/* ---------- список покупок ---------- */
+.shsheet{position:fixed;top:0;bottom:0;right:0;z-index:36;width:min(460px,100%);background:var(--surface);overflow-y:auto;overscroll-behavior:contain;box-shadow:-12px 0 30px rgba(0,0,0,.25);animation:slidein .22s ease-out}
+.shsheet[hidden]{display:none}
+@keyframes slidein{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+.sh-bar{justify-content:space-between}
+.sh-bar .rs-name{flex:1}
+.sh-body{padding:16px 18px calc(env(safe-area-inset-bottom,0px) + 28px)}
+.sh-body h3{font-family:var(--display);font-weight:500;font-size:16px;margin:22px 0 10px}
+.sh-progress{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.sh-progress .bar{height:10px;border-radius:999px;background:var(--rim-soft);overflow:hidden}
+.sh-progress .bar i{display:block;height:100%;border-radius:inherit;background:var(--grad);transition:width .3s}
+.sh-recipes{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sh-recipes li{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1.5px solid var(--line);border-radius:14px}
+.sh-recipes .em .fi{width:30px;height:30px}
+.sh-recipes .t{flex:1;min-width:0;font-weight:600;font-size:15px;line-height:1.25}
+.sh-recipes .t small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.stepper.sm button{width:34px;height:32px;font-size:18px}
+.stepper.sm output{min-width:30px;font-size:16px}
+.xs{flex:none;width:32px;height:32px;border-radius:50%;border:0;background:var(--rim-soft);color:var(--muted);cursor:pointer;font-size:18px;line-height:1}
+.sh-items .nm small{display:block;font-size:12px;color:var(--muted);text-decoration:none}
+.sh-items li{display:flex;align-items:center;gap:6px}
+.sh-items li .ing{flex:1}
+.sh-taste{margin:0;color:var(--muted);font-size:15px}
+.sh-add{display:flex;gap:8px;margin-top:14px}
+.sh-add input{flex:1}
+.sh-actions{display:grid;gap:10px;margin-top:24px}
+.sh-actions .btn,.sh-actions .del{min-height:46px;width:100%}
+.sh-empty{text-align:center;padding:30px 10px 10px;color:var(--muted)}
+.sh-empty .big{line-height:1;margin-bottom:10px}
+.copybox{position:fixed;inset:0;z-index:70;background:rgba(4,20,10,.5);display:grid;place-items:center;padding:16px}
+.copybox[hidden]{display:none}
+.cb-in{background:var(--surface);border-radius:20px;padding:18px;width:min(520px,100%);display:grid;gap:10px}
+.cb-in h2{font-family:var(--display);font-weight:500;font-size:18px;margin:0}
+.cb-in textarea{min-height:240px;font-size:14px}

@@ -1,0 +1,33 @@
+/* Кольори, шрифти й безпечні зони. Темна тема — через prefers-color-scheme або data-theme. */
+:root{
+  --bg:#F1F6F0; --surface:#FFFFFF; --ink:#12291C; --muted:#4F6656; --line:#D2E1D4;
+  --rim:#1B6A3C; --rim-ink:#FFFFFF; --rim-soft:#E1F0E3; --mustard:#E0A21A;
+  --danger:#B3261E; --plate:#FFFFFF; --plate-in:#EEF3EE; --field:#FFFFFF;
+  --grad:linear-gradient(120deg,#0A3520 0%,#15623A 38%,#4BA35A 72%,#B6E297 100%);
+  --grad-dark:#0F4A28;
+  --display:"Unbounded", "Arial Black", system-ui, sans-serif;
+  --text:"Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --sat:env(safe-area-inset-top,0px); --sab:env(safe-area-inset-bottom,0px);
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1510; --surface:#132219; --ink:#E2EFE5; --muted:#93AA9A; --line:#24382B;
+    --rim:#80D18B; --rim-ink:#0A1A10; --rim-soft:#1A3324; --mustard:#F0C04A;
+    --danger:#F28B82; --plate:#E9F0EA; --plate-in:#D7E3D9; --field:#0F1B14;
+    --grad:linear-gradient(120deg,#04180C 0%,#0E4726 40%,#2C7A3E 75%,#76B567 100%);
+    --grad-dark:#0B3A20;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1510; --surface:#132219; --ink:#E2EFE5; --muted:#93AA9A; --line:#24382B;
+  --rim:#80D18B; --rim-ink:#0A1A10; --rim-soft:#1A3324; --mustard:#F0C04A;
+  --danger:#F28B82; --plate:#E9F0EA; --plate-in:#D7E3D9; --field:#0F1B14;
+  --grad:linear-gradient(120deg,#04180C 0%,#0E4726 40%,#2C7A3E 75%,#76B567 100%);
+  --grad-dark:#0B3A20;
+  color-scheme: dark;
+}

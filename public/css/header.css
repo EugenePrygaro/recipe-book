@@ -1,0 +1,15 @@
+/* ---------- header ---------- */
+.cloth{position:relative;overflow:hidden;isolation:isolate;color:#fff;
+  background:
+    radial-gradient(900px 440px at 8% -35%, rgba(86,180,104,.55), transparent 62%),
+    radial-gradient(700px 420px at 100% 120%, rgba(126,204,112,.38), transparent 60%),
+    linear-gradient(160deg,#08311D 0%,#0F4A28 48%,#18663B 100%)}
+.cloth::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(rgba(255,255,255,.09) 1.3px, transparent 1.6px) 0 0/22px 22px;
+  -webkit-mask-image:linear-gradient(100deg,#000 0%,rgba(0,0,0,.6) 35%,transparent 65%);mask-image:linear-gradient(100deg,#000 0%,rgba(0,0,0,.6) 35%,transparent 65%)}
+.hero{position:relative;z-index:1;min-height:330px;padding-block:44px 84px;display:flex;align-items:center}
+.hero-text{display:grid;gap:22px;justify-items:start;max-width:680px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(32px,5.6vw,60px);line-height:1.04;margin:0;letter-spacing:-.015em;color:#fff;text-shadow:0 3px 24px rgba(0,30,10,.35)}
+.hero-deco{position:absolute;z-index:0;pointer-events:none;top:8px;right:max(-40px, calc(50vw - 660px));height:calc(100% - 44px);width:auto;aspect-ratio:560/330}
+.wave{position:absolute;left:0;bottom:-1px;z-index:2;width:100%;height:46px;display:block;fill:var(--bg)}
+.hero .btn{font-size:17px;padding:13px 24px;background:#fff;border-color:#fff;color:var(--grad-dark);box-shadow:0 8px 22px rgba(0,40,15,.3)}

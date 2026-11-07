@@ -1,0 +1,17 @@
+{
+  "name": "Книга рецептів",
+  "short_name": "Рецепти",
+  "description": "Наша домашня книга рецептів: рулетка страв, список покупок, режим готування.",
+  "lang": "uk",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F6F0",
+  "theme_color": "#0F4A28",
+  "icons": [
+    { "src": "/icons/app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/app/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,33 @@
+/* Базові стилі, кнопки, службові класи */
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 200px);-webkit-text-size-adjust:100%}
+html.locked,html.locked body{overflow:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--text);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{touch-action:manipulation}
+:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mob-only{display:none !important}
+
+
+/* ---------- кнопки ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--rim);background:var(--rim);color:var(--rim-ink);border-radius:999px;padding:11px 20px;font-weight:600;cursor:pointer;line-height:1.2}
+.btn.ghost{background:var(--surface);color:var(--rim)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn svg{width:18px;height:18px}
+.fab{display:none}
+
+/* атрибут hidden завжди ховає елемент, навіть якщо клас задає display */
+[hidden]{display:none !important}
+
+/* ---------- іконки ---------- */
+/* Lucide зі спрайта: колір = колір тексту, заливку можна ввімкнути через fill */
+.ic{width:1.15em;height:1.15em;flex:none;vertical-align:-.2em;fill:none;stroke:currentColor}
+/* Кольорові Fluent Emoji */
+.fi{width:1.3em;height:1.3em;flex:none;display:inline-block;vertical-align:-.28em;object-fit:contain}
+.fi-xs{width:16px;height:16px}
+.fi-sm{width:20px;height:20px}
+.fi-xl{width:72px;height:72px}

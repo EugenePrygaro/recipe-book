@@ -1,0 +1,18 @@
+/* Точка входу стилів. У продакшні `npm run build` збирає ці файли в один мініфікований. */
+@import url("./fonts.css");
+@import url("./tokens.css");
+@import url("./base.css");
+@import url("./header.css");
+@import url("./form.css");
+@import url("./toolbar.css");
+@import url("./cards.css");
+@import url("./recipe.css");
+@import url("./extras.css");
+@import url("./shop.css");
+@import url("./celebration.css");
+@import url("./overlays.css");
+@import url("./roulette.css");
+@import url("./features.css");
+@import url("./season.css");
+@import url("./responsive.css");
+@import url("./animations.css");

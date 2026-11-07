@@ -1,0 +1,74 @@
+/* ---------- анімації й ефекти ----------
+   Анімуються лише transform і opacity, щоб не навантажувати телефон.
+   Усе вимикається, якщо в системі ввімкнено «Зменшення руху». */
+
+@keyframes fade-up{from{opacity:0;transform:translateY(16px)}}
+@keyframes pop-in{from{opacity:0;transform:scale(.6)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+@keyframes spin-in{from{transform:rotate(-120deg) scale(.6);opacity:0}}
+@keyframes shine{0%,72%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(220%) skewX(-20deg)}}
+@keyframes wobble{0%,86%,100%{transform:rotate(0)}90%{transform:rotate(-10deg)}95%{transform:rotate(8deg)}}
+@keyframes bump{40%{transform:scale(1.25)}}
+@keyframes check{from{transform:scale(0) rotate(45deg)}}
+@keyframes ring{from{opacity:.55;transform:scale(.7)}to{opacity:0;transform:scale(1.8)}}
+
+/* шапка: поява назви, кнопки й тарілки */
+.hero h1{animation:fade-up .7s cubic-bezier(.2,.8,.2,1) both}
+.hero .btn{animation:fade-up .7s .12s cubic-bezier(.2,.8,.2,1) both}
+.hero-deco{animation:pop-in .9s .1s cubic-bezier(.2,1.2,.4,1) both,float 7s 1.2s ease-in-out infinite;will-change:transform}
+.hero-deco .rosette{transform-box:fill-box;transform-origin:center;animation:spin-in 1.3s .25s cubic-bezier(.2,.9,.3,1) both}
+
+/* картки: з’являються під час прокрутки (клас .reveal → .in ставить list.js) */
+.card.reveal{opacity:0;transform:translateY(22px) scale(.98)}
+.card.reveal.in{opacity:1;transform:none;transition:opacity .5s ease var(--d,0ms),transform .6s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+@media (hover:hover){
+  .card{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s}
+  .card:not(.open):hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(10,40,20,.14);border-color:color-mix(in srgb,var(--rim) 35%,var(--line))}
+  .card .photo img.ph,.card .plate{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+  .card:not(.open):hover .photo img.ph{transform:scale(1.05)}
+  .card:not(.open):hover .plate{transform:rotate(-6deg) scale(1.04)}
+}
+.photo img.ph{opacity:0;transition:opacity .4s}
+.photo img.ph.ok{opacity:1}
+
+/* кнопки й чипи: м’який відгук на натискання */
+.btn,.chip,.toggle,.ed,.del,.qbtn,.afp,.tag,.filter-btn,.seg button,.stepper button,.fab,.back,.x,.xs,.icon-btn{transition:transform .15s ease,background-color .2s,color .2s,border-color .2s,box-shadow .2s}
+.btn:active,.chip:active,.toggle:active,.ed:active,.del:active,.qbtn:active,.afp:active,.tag:active,.filter-btn:active,.stepper button:active,.fab:active,.back:active,.x:active,.xs:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{animation:bump .3s ease}
+.fab{animation:pop-in .5s .6s cubic-bezier(.2,1.4,.4,1) both}
+.fab:hover{transform:scale(1.06) rotate(90deg)}
+
+/* сердечко: «пульс» і кільце */
+.fav{position:absolute}
+.fav.pop::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #E5484D;animation:ring .5s ease-out forwards}
+
+/* порції: число підстрибує при зміні */
+.stepper output.bump{animation:bump .25s ease}
+
+/* відмітки в інгредієнтах і покупках */
+.ing .box{transition:background-color .2s,border-color .2s,transform .2s}
+.ing[aria-pressed="true"] .box{transform:scale(1.05)}
+.ing[aria-pressed="true"] .box::after{animation:check .25s cubic-bezier(.2,1.4,.4,1)}
+.ing .nm,.ing .q{transition:opacity .25s}
+.stp{transition:opacity .25s}
+
+/* банер «що приготувати» */
+.dice{animation:wobble 4s ease-in-out 1.5s infinite}
+.btn.shine{position:relative;overflow:hidden}
+.btn.shine::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:shine 4.5s ease-in-out 2s infinite}
+.idea{animation:fade-up .6s .2s cubic-bezier(.2,.8,.2,1) both}
+
+/* дрібниці */
+.toast{transform:translateY(16px);transition:opacity .25s,transform .3s cubic-bezier(.2,1.2,.4,1)}
+.toast.show{transform:none}
+.sh-empty .big{animation:float 3s ease-in-out infinite}
+.rs-head h2,.rs-head .meta{animation:fade-up .45s .05s cubic-bezier(.2,.8,.2,1) both}
+.empty{animation:fade-up .4s ease both}
+.ip span{transition:transform .15s,border-color .2s,background-color .2s}
+.ip input:checked + span{transform:scale(1.06)}
+
+/* «Зменшення руху» в системі — без анімацій */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;animation-delay:0s !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .card.reveal{opacity:1;transform:none}
+}
