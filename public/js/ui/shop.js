@@ -63,7 +63,7 @@ function renderShop() {
         <button type="button" class="xs" data-sh="rm" aria-label="Прибрати ${esc(r.title)} зі списку">×</button></li>`).join("")}</ul>` : ""}
     ${buy.length || extra.length ? `<h3>Що купити</h3><ul class="ings sh-items">
       ${buy.map((i) => `<li><button type="button" class="ing" data-sh="chk" data-k="${esc(i.key)}" aria-pressed="${checked.has(i.key)}">
-        <span class="box" aria-hidden="true"></span><span class="nm">${esc(i.name)}<small>${esc([...i.from].join(", "))}</small></span>
+        <span class="box" aria-hidden="true"></span><span class="nm">${esc(i.name)}<small>${esc([...i.sources].join(", "))}</small></span>
         <span class="q">${esc(qtyText(i))}</span></button></li>`).join("")}
       ${extra.map((x) => `<li><button type="button" class="ing" data-sh="chkx" data-x="${esc(x.id)}" aria-pressed="${Boolean(x.done)}">
         <span class="box" aria-hidden="true"></span><span class="nm">${esc(x.text)}<small>свій пункт</small></span></button>

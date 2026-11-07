@@ -43,12 +43,16 @@ function syncToShopping(plan) {
 function archiveHTML() {
   const archive = data.personal.celebration.archive;
   if (!archive.length) return "";
+  const copyLabel = currentPlan()
+    ? "Скопіювати до поточного свята"
+    : "Створити свято з архіву";
   return `<details class="holiday-archive"><summary>Архів свят — ${archive.length}</summary><ul>
     ${archive
       .map((plan) => {
         const count = plan.recipes.length + plan.custom.length;
         return `<li><strong>${esc(plan.title)}</strong><span>${plan.date ? esc(plan.date) : "Без дати"} · ${count} ${plural(count, "страва", "страви", "страв")}</span>
-        <small>${[...plan.recipes.map((dish) => findRecipe(dish.id)?.title).filter(Boolean), ...plan.custom.map((dish) => dish.name)].map(esc).join(", ")}</small></li>`;
+        <small>${[...plan.recipes.map((dish) => findRecipe(dish.id)?.title).filter(Boolean), ...plan.custom.map((dish) => dish.name)].map(esc).join(", ")}</small>
+        <button type="button" class="btn ghost holiday-archive-copy" data-ha="copy-archive" data-archive-id="${esc(plan.id)}">${copyLabel}</button></li>`;
       })
       .join("")}
   </ul></details>`;
@@ -92,25 +96,35 @@ function renderPlan() {
       const recipe = findRecipe(dish.id);
       if (!recipe) return "";
       return `<li class="holiday-dish" data-hid="${esc(dish.id)}">
-      <span class="holiday-dish-icon">${food(recipe.icon || "fork-and-knife-with-plate")}</span>
-      <span class="holiday-dish-name">${esc(recipe.title)}<small>${portions(dish.servings)}</small></span>
-      <span class="stepper sm" role="group" aria-label="Порції: ${esc(recipe.title)}">
-        <button type="button" data-ha="serving" data-delta="-1" aria-label="Менше порцій" ${dish.servings <= 1 ? "disabled" : ""}>−</button>
-        <output>${dish.servings}</output>
-        <button type="button" data-ha="serving" data-delta="1" aria-label="Більше порцій">+</button>
-      </span>
-      <label class="holiday-ready"><input type="checkbox" data-ha="ready" ${dish.ready ? "checked" : ""}><span>Готово</span></label>
-      <button type="button" class="xs" data-ha="remove-dish" aria-label="Прибрати ${esc(recipe.title)}">×</button>
+      <div class="holiday-dish-main">
+        <span class="holiday-dish-icon">${food(recipe.icon || "fork-and-knife-with-plate")}</span>
+        <span class="holiday-dish-name">${esc(recipe.title)}</span>
+        <button type="button" class="xs" data-ha="remove-dish" aria-label="Прибрати ${esc(recipe.title)}">×</button>
+      </div>
+      <div class="holiday-dish-controls">
+        <span class="holiday-servings"><span class="holiday-servings-label">Порції</span>
+          <span class="stepper sm" role="group" aria-label="Порції: ${esc(recipe.title)}">
+            <button type="button" data-ha="serving" data-delta="-1" aria-label="Менше порцій" ${dish.servings <= 1 ? "disabled" : ""}>−</button>
+            <output>${dish.servings}</output>
+            <button type="button" data-ha="serving" data-delta="1" aria-label="Більше порцій">+</button>
+          </span>
+        </span>
+        <label class="holiday-ready"><input type="checkbox" data-ha="ready" ${dish.ready ? "checked" : ""}><span>Готово</span></label>
+      </div>
     </li>`;
     })
     .join("");
   const customRows = plan.custom
     .map(
       (dish) => `<li class="holiday-dish" data-hid="${esc(dish.id)}">
-    <span class="holiday-dish-icon">${food("cooking")}</span>
-    <span class="holiday-dish-name">${esc(dish.name)}<small>${portions(dish.servings)} · власна страва</small></span>
-    <label class="holiday-ready"><input type="checkbox" data-ha="ready-custom" ${dish.ready ? "checked" : ""}><span>Готово</span></label>
-    <button type="button" class="xs" data-ha="remove-custom" aria-label="Прибрати ${esc(dish.name)}">×</button>
+    <div class="holiday-dish-main">
+      <span class="holiday-dish-icon">${food("cooking")}</span>
+      <span class="holiday-dish-name">${esc(dish.name)}<small>${portions(dish.servings)} · власна страва</small></span>
+      <button type="button" class="xs" data-ha="remove-custom" aria-label="Прибрати ${esc(dish.name)}">×</button>
+    </div>
+    <div class="holiday-dish-controls">
+      <label class="holiday-ready"><input type="checkbox" data-ha="ready-custom" ${dish.ready ? "checked" : ""}><span>Готово</span></label>
+    </div>
   </li>`,
     )
     .join("");
@@ -136,6 +150,7 @@ function renderPlan() {
       <label class="f">Дата<input data-draft data-hfield="date" type="date" value="${esc(plan.date)}"></label>
       <div class="sh-progress"><div class="bar"><i style="width:${pct}%"></i></div><span>Куплено ${done} з ${items.length} інгредієнтів · готово ${ready} з ${dishTotal} страв</span></div>
     </div>
+    <button type="button" class="btn holiday-open-shopping" data-ha="shopping">Відкрити список покупок</button>
     <h3>Меню</h3>
     ${dishTotal ? `<ul class="holiday-dishes">${recipeRows}${customRows}</ul>` : `<p class="holiday-empty">Додайте страви до святкового меню.</p>`}
     <form class="holiday-add" id="holidayAddRecipe">
@@ -154,7 +169,6 @@ function renderPlan() {
     <h3>Інгредієнти</h3>
     ${ingredientRows ? `<ul class="ings holiday-ingredients">${ingredientRows}</ul>` : `<p class="holiday-empty">Додайте страви, щоб побачити інгредієнти.</p>`}
     <div class="sh-actions holiday-actions">
-      <button type="button" class="btn" data-ha="shopping">Відкрити список покупок</button>
       <button type="button" class="btn ghost" data-ha="archive">Завершити свято й перенести в архів</button>
     </div>
     ${archiveHTML()}`;
@@ -230,12 +244,85 @@ function savePlan() {
   personalChanged();
 }
 
+function copyArchivedPlan(archived) {
+  let plan = currentPlan();
+  const creating = !plan;
+  if (!plan) {
+    plan = {
+      id: makeId("holiday"),
+      title: archived.title,
+      date: archived.date || isoToday(),
+      recipes: [],
+      custom: [],
+      checked: [],
+    };
+    data.personal.celebration.current = plan;
+  }
+
+  let copied = 0;
+  let skipped = 0;
+  for (const dish of archived.recipes) {
+    if (!findRecipe(dish.id)) {
+      skipped++;
+      continue;
+    }
+    const existing = plan.recipes.find((item) => item.id === dish.id);
+    if (existing) {
+      existing.servings = dish.servings;
+      existing.ready = false;
+    } else if (plan.recipes.length < 100) {
+      plan.recipes.push({ id: dish.id, servings: dish.servings, ready: false });
+    } else {
+      skipped++;
+      continue;
+    }
+    copied++;
+  }
+
+  for (const [index, dish] of archived.custom.entries()) {
+    const signature = (item) =>
+      `${norm(item.name)}|${item.ingredients.map(norm).sort().join("|")}`;
+    const existing = plan.custom.find(
+      (item) => signature(item) === signature(dish),
+    );
+    if (existing) {
+      existing.servings = dish.servings;
+      existing.ready = false;
+    } else if (plan.custom.length < 50) {
+      plan.custom.push({
+        id: `${makeId("dish")}-${index}`,
+        name: dish.name,
+        servings: dish.servings,
+        ready: false,
+        ingredients: [...dish.ingredients],
+      });
+    } else {
+      skipped++;
+      continue;
+    }
+    copied++;
+  }
+
+  savePlan();
+  const message = creating
+    ? `Створено свято з архіву: додано ${copied} ${plural(copied, "страву", "страви", "страв")}`
+    : `З архіву додано ${copied} ${plural(copied, "страву", "страви", "страв")}`;
+  toast(skipped ? `${message}; пропущено: ${skipped}` : message);
+}
+
 function handleClick(event) {
   const button = event.target.closest("[data-ha]");
   if (!button) return;
+  const action = button.dataset.ha;
+  if (action === "copy-archive") {
+    const archived = data.personal.celebration.archive.find(
+      (item) => item.id === button.dataset.archiveId,
+    );
+    if (archived) copyArchivedPlan(archived);
+    return;
+  }
   const plan = currentPlan();
   const dishId = button.closest("[data-hid]")?.dataset.hid;
-  const action = button.dataset.ha;
   if (!plan) return;
   if (action === "serving") {
     const dish = plan.recipes.find((item) => item.id === dishId);

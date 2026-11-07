@@ -8,6 +8,15 @@
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 32px)
 }
 
+.holiday-sheet input,
+.holiday-sheet select,
+.holiday-sheet textarea,
+.holiday-sheet button {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%
+}
+
 .holiday-intro,
 .holiday-empty {
   margin: 0 0 16px;
@@ -99,13 +108,19 @@
 
 .holiday-summary {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px
 }
 
 .holiday-summary .sh-progress {
   grid-column: 1/-1;
   margin: 4px 0
+}
+
+.holiday-open-shopping {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 12px
 }
 
 .holiday-dishes {
@@ -117,13 +132,22 @@
 }
 
 .holiday-dish {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px;
-  padding: 9px;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--bg)
+}
+
+.holiday-dish-main {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0
 }
 
 .holiday-dish-icon {
@@ -138,9 +162,22 @@
 .holiday-dish-name {
   flex: 1;
   min-width: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.25
+}
+
+.holiday-dish-controls,
+.holiday-servings {
+  display: flex;
+  align-items: center;
+  gap: 10px
+}
+
+.holiday-servings-label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600
 }
 
 .holiday-dish-name small,
@@ -167,16 +204,16 @@
 }
 
 .holiday-dish .stepper.sm button {
-  width: 30px;
-  height: 30px
+  width: 36px;
+  height: 36px
 }
 
 .holiday-dish .stepper.sm output {
-  min-width: 24px
+  min-width: 30px
 }
 
 .holiday-add {
-  grid-template-columns: minmax(0, 1fr) 82px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 82px);
   align-items: end;
   margin-top: 12px;
   padding: 12px;
@@ -185,6 +222,11 @@
 }
 
 .holiday-add .f:first-child {
+  min-width: 0
+}
+
+.holiday-add .f,
+.holiday-custom form .f {
   min-width: 0
 }
 
@@ -220,7 +262,7 @@
 }
 
 .holiday-custom form {
-  grid-template-columns: 1fr 100px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 100px);
   margin-top: 12px
 }
 
@@ -228,6 +270,10 @@
 .holiday-custom form .f:last-of-type,
 .holiday-custom form .btn {
   grid-column: 1/-1
+}
+
+.holiday-custom form .btn {
+  white-space: normal
 }
 
 .holiday-custom textarea {
@@ -285,6 +331,13 @@
   background: var(--bg)
 }
 
+.holiday-archive-copy {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 8px;
+  white-space: normal
+}
+
 .holiday-archive li span,
 .holiday-archive li small {
   color: var(--muted);
@@ -298,7 +351,7 @@
   }
 
   .holiday-create {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 12px
   }
 
@@ -311,19 +364,66 @@
   }
 
   .holiday-dish {
-    gap: 6px;
-    padding: 8px 6px
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px
+  }
+
+  .holiday-dish-main {
+    gap: 10px
   }
 
   .holiday-dish-name {
-    font-size: 13px
+    font-size: 15px;
+    overflow-wrap: anywhere
+  }
+
+  .holiday-dish-controls {
+    justify-content: space-between;
+    min-height: 40px;
+    padding-left: 0
+  }
+
+  .holiday-servings {
+    gap: 8px
   }
 
   .holiday-ready {
-    font-size: 11px
+    min-height: 40px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 13px
+  }
+
+  .holiday-dish .xs {
+    width: 36px;
+    height: 36px
   }
 
   .holiday-dish .stepper.sm button {
-    width: 28px
+    width: 36px;
+    height: 36px
+  }
+
+  .holiday-dish .stepper.sm output {
+    min-width: 32px
+  }
+
+  .holiday-ingredient .nm {
+    min-width: 0;
+    overflow-wrap: anywhere
+  }
+
+  .holiday-ingredient .q {
+    max-width: 42%;
+    white-space: normal
+  }
+}
+
+@media(max-width:360px) {
+  .holiday-servings-label {
+    display: none
   }
 }

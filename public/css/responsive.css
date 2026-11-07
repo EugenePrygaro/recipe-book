@@ -62,7 +62,7 @@
   .add-head h2{font-size:18px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
   .add .hint{margin:14px 0 16px;font-size:14px}
   .photo-pick{aspect-ratio:16/9}
-  .row2,.row3{grid-template-columns:1fr 1fr}
+  .row2,.row3{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .row2 > :first-child,.row3 > :first-child{grid-column:1/-1}
   .recipe-meta > :last-child{grid-column:1/-1}
   input[type=text],input[type=number],select{min-height:48px}
