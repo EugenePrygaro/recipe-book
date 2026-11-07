@@ -3,7 +3,7 @@ import { TAGS, UNITS, NO_CATEGORY, RECIPE_ICONS, DEFAULT_ICON } from "../config.
 import { icon, food } from "../lib/icons.js";
 import { $, $$, esc, toast, scrollBehavior } from "../lib/dom.js";
 import { loadImage, preparePhoto } from "../lib/image.js";
-import { ui, photoSrc } from "../state.js";
+import { ui, photoSrc, categories } from "../state.js";
 import { createRecipe, updateRecipe } from "../actions.js";
 import { errorText } from "../services/api.js";
 import { isMobile } from "./media.js";
@@ -17,6 +17,23 @@ let editing = null;      // страва, яку редагуємо, або null
 let newPhoto = null;     // нове фото: { image, thumb }
 let photoMode = "keep";  // keep | new | none
 let afterClose = null;
+const CUSTOM_CATEGORY = "__custom_category__";
+
+function setCategoryField(category = "") {
+  const select = $("#fCatSelect");
+  const names = categories().map(([name]) => name).filter((name) => name !== NO_CATEGORY);
+  select.innerHTML = [
+    '<option value="">Оберіть категорію</option>',
+    ...names.map((name) => `<option value="${esc(name)}">${esc(name)}</option>`),
+    `<option value="${esc(NO_CATEGORY)}">${esc(NO_CATEGORY)}</option>`,
+    '<option value="__custom_category__">Інша категорія…</option>',
+  ].join("");
+
+  const isCustom = Boolean(category && category !== NO_CATEGORY && !names.includes(category));
+  select.value = isCustom ? CUSTOM_CATEGORY : category;
+  $("#fCat").value = isCustom ? category : "";
+  $("#customCatField").hidden = !isCustom;
+}
 
 /* ---------- рядки інгредієнтів ---------- */
 
@@ -69,6 +86,7 @@ function setIcon(name) {
 export function resetForm() {
   editing = null;
   $("#addForm").reset();
+  setCategoryField();
   $("#fServ").value = 2;
   $("#ingRows").innerHTML = "";
   addIngRow(); addIngRow(); addIngRow();
@@ -120,7 +138,7 @@ export function openEditor(r) {
   $("#saveBtn").textContent = "Зберегти зміни";
   $("#fTitle").value = r.title || "";
   $("#fServ").value = r.servings || 2;
-  $("#fCat").value = r.category === NO_CATEGORY ? "" : r.category || "";
+  setCategoryField(r.category || "");
   $("#fKcal").value = r.kcal || "";
   $("#fProt").value = r.prot ?? "";
   $("#fFat").value = r.fat ?? "";
@@ -151,7 +169,9 @@ function readForm() {
   return {
     title: $("#fTitle").value.trim(),
     servings: Math.min(50, intOrNull($("#fServ").value) || 2),
-    category: $("#fCat").value.trim() || NO_CATEGORY,
+    category: $("#fCatSelect").value === CUSTOM_CATEGORY
+      ? $("#fCat").value.trim() || NO_CATEGORY
+      : $("#fCatSelect").value || NO_CATEGORY,
     description: $("#fDesc").value.trim(),
     kcal: intOrNull($("#fKcal").value),
     prot: intOrNull($("#fProt").value, 0),
@@ -218,6 +238,12 @@ export function initForm() {
 
   $("#iconPick").innerHTML = RECIPE_ICONS.map((name) =>
     `<label class="ip"><input type="radio" name="recipeIcon" value="${name}"><span>${food(name)}</span></label>`).join("");
+
+  $("#fCatSelect").addEventListener("change", (event) => {
+    const isCustom = event.currentTarget.value === CUSTOM_CATEGORY;
+    $("#customCatField").hidden = !isCustom;
+    if (isCustom) $("#fCat").focus();
+  });
 
   $("#openAdd").addEventListener("click", () => {
     if (!panel().hidden && !editing) { closeForm(); return; }

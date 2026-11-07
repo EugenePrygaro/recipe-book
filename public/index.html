@@ -391,17 +391,21 @@
                 </label>
               </div>
               <div class="row2 recipe-meta">
-                <label class="f"
-                  >Категорія
-                  <input
-                    type="text"
-                    id="fCat"
-                    list="catList"
-                    placeholder="Оберіть або впишіть свою"
-                    maxlength="40"
-                  />
+                <div class="f category-field">
+                  <span id="fCatLabel">Категорія</span>
+                  <select id="fCatSelect" aria-labelledby="fCatLabel"></select>
+                  <label class="f" id="customCatField" hidden
+                    >Своя категорія
+                    <input
+                      type="text"
+                      id="fCat"
+                      list="catList"
+                      placeholder="Введіть назву категорії"
+                      maxlength="40"
+                    />
+                  </label>
                   <datalist id="catList"></datalist>
-                </label>
+                </div>
                 <label class="f"
                   >Ккал на порцію
                   <input
